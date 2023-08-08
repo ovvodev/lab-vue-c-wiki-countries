@@ -1,27 +1,30 @@
 <script setup>
-const countriesList = ref([]);
+import { ref, onMounted } from "vue";
+import { useRoute } from "vue-router";
 
-const selectedCountry = ref({});
+const route = useRoute();
+const country = ref({});
 
-const fetchCountries = async () => {
+const fetchCountry = async () => {
+  const id = route.params.alpha3Code;
   const response = await fetch(
-    "https://ih-countries-api.herokuapp.com/countries"
+    `https://ih-countries-api.herokuapp.com/countries/${id}`
   );
   const data = await response.json();
-  countriesList.value = data;
-};
-const getFlagUrl = (alpha2Code) => {
-  return `http://flagpedia.net/data/flags/icon/72x54/${alpha2Code.toLowerCase()}.png`;
+  country.value = data;
 };
 
-const selectCountry = (country) => {
-  selectedCountry.value = country;
-};
 onMounted(() => {
-  fetchCountries();
+  fetchCountry();
 });
 </script>
 
-<template></template>
+<template>
+  <p>Country View{{ country }}{{ route.params }}</p>
+</template>
 
-<style></style>
+<style scoped>
+p {
+  margin: 30px 50px;
+}
+</style>

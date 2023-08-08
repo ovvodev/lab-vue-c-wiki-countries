@@ -6,13 +6,14 @@ const routes = [
     path: "/",
     name: "list",
     component: () => import("../components/CountriesList.vue"),
-    children: [
-      {
-        path: "/list/:alpha3Code",
-        name: "list",
-        component: () => import("../components/CountryDetails.vue"),
-      },
-    ],
+    
+      
+    
+  },
+  {
+    path: "/countrydetails/:alpha3Code",
+    name: "countryDetails",
+    component: () => import("../components/CountryDetails.vue"),
   },
 ];
 

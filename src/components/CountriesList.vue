@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import CountryDetails from "./CountryDetails.vue";
+import { RouterLink } from "vue-router";
+
 
 const countriesList = ref([]);
 
@@ -53,8 +54,13 @@ onMounted(() => {
       <p>Area {{ selectedCountry.area }}km²</p>
       <p>Borders 
         <ul >
-            <li v-for="borderCountry in selectedCountry.borders" :key="borderCountry.borders">
-    <p>{{ borderCountry }}</p></li>
+           <!-- <li v-for="borderCountry in selectedCountry.borders" :key="borderCountry.borders">
+    <p>{{ borderCountry }}</p><RouterLink :to="{ name : 'country'}">more</RouterLink></li> -->
+    <li v-for="borderCountry in selectedCountry.borders" :key="borderCountry">
+    <RouterLink :to="{ name: 'countryDetails', params: { alpha3Code: borderCountry } }">
+      {{ borderCountry }}
+    </RouterLink>
+  </li>
         </ul>
         </p>
     </section>
